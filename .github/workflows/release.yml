@@ -41,8 +41,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./hw4_draft
-        asset_name: hw4_draft
+        asset_path: ./templates
+        asset_name: templates
         asset_content_type: application/vnd.debian.binary-package
 
     - name: Doxygen Action
