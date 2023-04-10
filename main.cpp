@@ -15,8 +15,8 @@ void print_ip(IntT v) {
     std::cout << (int) *p << std::endl;
 }
 
-template<typename Str>
-auto print_ip(const Str &str)-> decltype((void)Str().c_str()) {
+template<typename Str, typename = std::enable_if_t<std::is_same_v<Str, std::string>>>
+auto print_ip(const Str &str) {
     std::cout << str << std::endl;
 }
 
