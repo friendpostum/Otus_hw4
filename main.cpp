@@ -30,37 +30,14 @@ void print_ip(const ContT &cont) {
     std::cout << *it << std::endl;
 }
 
-/*template<typename TupleT, std::size_t... Is>
-void printTupleImp(const TupleT &tp, std::index_sequence<Is...>) {
-    size_t index = 0;
-    auto printElem = [&index](const auto &x) {
-        if (index++ > 0)
-            std::cout << ".";
-        std::cout << x;
-    };
-    (printElem(std::get<Is>(tp)), ...);
-}
-
-template<typename TupleT, typename = std::enable_if_t<std::is_same_v<TupleT, std::tuple< std::tuple_element_t<0, TupleT>,
-                                                                                         std::tuple_element_t<0, TupleT>,
-                                                                                         std::tuple_element_t<0, TupleT>,
-                                                                                         std::tuple_element_t<0, TupleT> >>>,
-                                                                              std::size_t TupSize = std::tuple_size_v<TupleT>>
-void print_ip(const TupleT &tp) {
-    printTupleImp(tp, std::make_index_sequence<TupSize>{});
-}*/
-
 template <class TupleT, size_t ... Is>
 void PrintTuple(const TupleT &tp, std::index_sequence<Is...>){
     size_t index = 0;
-    size_t el_count = std::tuple_size<std::remove_reference_t<TupleT>>::value;
-
-    auto printElem = [&index, &el_count] (const auto value){
-        std::enable_if_t<std::is_same_v<std::tuple_element_t<0, TupleT>, std::remove_const_t<decltype(value)>>, int> fake_var;
-
-        std::cout << value;
-        index++;
-        if (index < el_count) std::cout << '.';
+    auto printElem = [&index] (const auto x){
+        std::enable_if_t<std::is_same_v<std::tuple_element_t<0, TupleT>, std::remove_const_t<decltype(x)>>, int> var;
+        if (index++ > 0)
+            std::cout << ".";
+        std::cout << x;
     };
 
     (printElem(std::get<Is>(tp)), ...);
